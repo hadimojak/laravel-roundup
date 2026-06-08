@@ -68,16 +68,26 @@ class ChirpController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Chirp $chirp)
     {
-        //
+        $validated = $request->validate([
+            'message' => 'required|string|max:255',
+        ], [
+            'message.required' => 'please write somthing',
+            'message.max' => 'message is to long',
+        ]);
+
+        $chirp->update($validated);
+
+        return redirect('/')->with('success', 'Chirp updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Chirp $chirp)
     {
-        //
+        $chirp->delete();
+        return redirect('/')->with('success', 'Chirp removed!');
     }
 }
