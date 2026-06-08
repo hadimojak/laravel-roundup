@@ -33,7 +33,19 @@ class ChirpController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'message' => 'required|string|max:255',
+        ], [
+            'message.required' => 'please write somthing',
+            'message.max' => 'message is to long',
+        ]);
+
+        Chirp::create([
+            'message' => $validated['message'],
+            'user_id' => null,
+        ]);
+
+        return redirect('/')->with('success', 'Chirp created!');
     }
 
     /**
@@ -47,9 +59,10 @@ class ChirpController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Chirp $chirp)
     {
-        //
+
+        return view('chirps.edit', compact('chirp'));
     }
 
     /**

@@ -1,9 +1,45 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+}
+
+@layer utilities {
+    .animate-fade-out {
+        animation: fade-out 4s ease-in-out forwards;
+    }
+
+    @keyframes fade-out {
+        0%,
+        70% {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        100% {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+    }
+}
+
+@layer components {
+    .avatar-upload {
+        @apply mt-3 block w-full text-sm text-gray-600;
+    }
+
+    .avatar-upload::file-selector-button {
+        @apply mr-4 px-4 py-2 rounded-lg border-0 text-sm font-semibold bg-blue-500 text-white cursor-pointer;
+    }
+
+    .avatar-upload::file-selector-button:hover {
+        @apply bg-blue-600;
+    }
 }
