@@ -40,10 +40,14 @@ class ChirpController extends Controller
             'message.max' => 'message is to long',
         ]);
 
-        Chirp::create([
-            'message' => $validated['message'],
-            'user_id' => null,
-        ]);
+
+        //creating chirp
+        // Chirp::create([
+        //     'message' => $validated['message'],
+        //     'user_id' => null,
+        // ]);
+
+        auth()->user()->chirps()->create($validated);
 
         return redirect('/')->with('success', 'Chirp created!');
     }
